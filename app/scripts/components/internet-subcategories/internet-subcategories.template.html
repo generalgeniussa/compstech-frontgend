@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-sm-4" ng-repeat="subcategory in $ctrl.subcategories">
+        <div class="category-button text-center">
+            <h4>{{ subcategory.name }}</h4>
+            <button class="btn btn-primary" ng-click="$ctrl.selectSubcategory({subcategory: subcategory})">
+                Order
+            </button>
+        </div>
+    </div>
+</div>

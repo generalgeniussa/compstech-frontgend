@@ -1,0 +1,39 @@
+<loader active="$ctrl.loading" text="Loading categories...">
+    <div class="page-header">
+        <h1>
+            Welcome<br/>
+            <small>What would you like to order today?</small>
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-8" ng-if="$ctrl.categories">
+            <internet-categories ng-if="$ctrl.step === 'categories'" categories="$ctrl.categories"
+                                 select-category="$ctrl.selectCategory(category)"></internet-categories>
+
+            <internet-subcategories ng-if="$ctrl.step === 'subcategories' && $ctrl.selectedCategory"
+                                    subcategories="$ctrl.selectedCategory.subcategories"
+                                    select-subcategory="$ctrl.selectSubcategory(subcategory)"></internet-subcategories>
+            <internet-products ng-if="$ctrl.step === 'products' && $ctrl.selectedSubcategory"
+                                    products="$ctrl.selectedSubcategory.products"
+                                    add-product="$ctrl.addProduct(product)"></internet-products>
+
+            <div>
+                <hr />
+                <hr />
+                <hr />
+                <hr />
+                <hr />
+                <p>
+                    <h1>CHANGE THIS:</h1>
+                    MAKE THE CATEGORIES THE BUTTONS AT THE TOP, MAKE THE DISPLAY BELOW THEIR SUBCATEGORIES AND THE MAIN DISPLAY THE PRODUCTS.
+                </p>
+                <div>
+                    <button class="btn btn-primary" ng-click="$ctrl.step='categories'">Categories</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <cart products="$ctrl.order.products" total="$ctrl.order.total"></cart>
+        </div>
+    </div>
+</loader>

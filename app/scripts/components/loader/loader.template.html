@@ -1,0 +1,6 @@
+<div class="compstech-loader">
+    <div class="compstech-loading-overlay text-center" ng-if="$ctrl.active">
+        <div class="compstech-loading-text">{{$ctrl.text}}</div>
+    </div>
+    <ng-transclude ng-if="!$ctrl.active"></ng-transclude>
+</div>
