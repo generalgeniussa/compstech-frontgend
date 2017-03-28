@@ -49,6 +49,17 @@ angular.module('app').component('internetOrderStart', {
             categoryService.getInternetCategories()
                 .then(function (response) {
                     $ctrl.categories = response.data;
+                    _.each($ctrl.categories, function (category) {
+                        _.each(category.subcategories, function (subcategory) {
+                            subcategory.lowestPrice = null;
+                            _.each(subcategory.products, function(product) {
+                                if (subcategory.lowestPrice === null || subcategory.lowestPrice > product.price) {
+                                    subcategory.lowestPrice = product.price;
+                                }
+                            });
+                            console.log(subcategory.lowestPrice);
+                        })
+                    });
                 })
                 .catch(function (response) {
                     $ctrl.error = true;
@@ -75,6 +86,24 @@ angular.module('app').component('internetOrderStart', {
             angular.forEach($ctrl.order.products, function(product) {
                 $ctrl.order.total += parseFloat(product.price);
             });
-        }
+            $ctrl.productAdded = true;
+            $ctrl.selectedProduct = product;
+        };
+
+        $ctrl.checkout = function () {
+            $ctrl.step = 'checkout';
+        };
+
+        $ctrl.addAnother = function () {
+            $ctrl.step = '';
+            $ctrl.productAdded = false;
+            $ctrl.selectedSubcategory = false;
+            $ctrl.selectedCategory = false;
+        };
+
+        $ctrl.removeProductFromCart = function(index) {
+            console.log('remove ', index);
+            $ctrl.order.products.splice(index, 1);
+        };
     }]
 });

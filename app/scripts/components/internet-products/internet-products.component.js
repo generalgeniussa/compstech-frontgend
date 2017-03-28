@@ -6,9 +6,14 @@ angular.module('app').component('internetProducts', {
     controllerAs: '$ctrl',
     bindings: {
         products: '<',
-        addProduct: '&'
+        addProduct: '&',
+        'selectedSubcategory': '<'
     },
     controller: [function () {
         var $ctrl = this;
+
+        $ctrl.$onInit = function () {
+            console.log($ctrl.products);
+        };
     }]
 });

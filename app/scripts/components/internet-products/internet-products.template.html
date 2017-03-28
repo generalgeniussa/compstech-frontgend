@@ -1,7 +1,24 @@
-<div class="row">
+<div class="row no-margin">
     <div class="col-sm-4" ng-repeat="product in $ctrl.products">
-        <div class="category-button text-center">
+        <div class="text-center product-button">
             <h4>{{ product.name }}</h4>
+
+            <span class="product-info-line" ng-if="product.description">
+                {{ product.description }}
+            </span>
+            <span class="product-info-line" ng-if="product.capped === 1">
+                {{ product.cap }} GB Cap
+            </span>
+            <span class="product-info-line" ng-if="product.capped === 0">
+                Uncapped
+            </span>
+            <span class="product-info-line" ng-if="product.speed > 0">
+                {{ product.speed }} Mbps <span ng-if="product.shaped === 1">Shaped</span><span ng-if="product.shaped === 0">Unshaped</span>
+            </span>
+            <span class="product-info-line product-price">
+                <strong>R {{ product.price.toFixed(2) }}</strong>
+            </span>
+
             <button class="btn btn-primary" ng-click="$ctrl.addProduct({product: product})">
                 Order
             </button>

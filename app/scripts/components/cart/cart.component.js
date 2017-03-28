@@ -6,7 +6,9 @@ angular.module('app').component('cart', {
     controllerAs: '$ctrl',
     bindings: {
         products: '<',
-        total: '<'
+        total: '<',
+        checkout: '&',
+        removeProductFromCart: '&'
     },
     controller: [function () {
         var $ctrl = this;

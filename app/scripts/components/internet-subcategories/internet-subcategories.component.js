@@ -5,7 +5,8 @@ angular.module('app').component('internetSubcategories', {
     templateUrl: 'scripts/components/internet-subcategories/internet-subcategories.template.html',
     bindings: {
         'subcategories': '<',
-        'selectSubcategory': '&'
+        'selectSubcategory': '&',
+        'selectedSubcategory': '<'
     },
     controllerAs: '$ctrl',
     controller: [function () {

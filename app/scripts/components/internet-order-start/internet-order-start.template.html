@@ -1,39 +1,52 @@
 <loader active="$ctrl.loading" text="Loading categories...">
-    <div class="page-header">
+    <div class="page-header" ng-show="$ctrl.step !== 'checkout'">
         <h1>
             Welcome<br/>
             <small>What would you like to order today?</small>
         </h1>
     </div>
-    <div class="row">
-        <div class="col-sm-8" ng-if="$ctrl.categories">
-            <internet-categories ng-if="$ctrl.step === 'categories'" categories="$ctrl.categories"
-                                 select-category="$ctrl.selectCategory(category)"></internet-categories>
+    <div class="page-header" ng-show="$ctrl.step === 'checkout'">
+        <h1>
+            Checkout<br/>
+            <small>Almost done...</small>
+        </h1>
+    </div>
 
-            <internet-subcategories ng-if="$ctrl.step === 'subcategories' && $ctrl.selectedCategory"
+    <div class="row" ng-if="$ctrl.step !== 'checkout'">
+        <div class="col-sm-8" ng-if="$ctrl.categories">
+            <internet-categories categories="$ctrl.categories"
+                                 select-category="$ctrl.selectCategory(category)"
+                                 selected-category="$ctrl.selectedCategory"></internet-categories>
+
+            <div class="text-center category-heading col-xs-12" ng-show="$ctrl.step === 'subcategories' && $ctrl.selectedCategory && !$ctrl.productAdded">
+                <h4>Available {{ $ctrl.selectedCategory.name }} Packages</h4>
+            </div>
+
+            <internet-subcategories ng-if="$ctrl.step === 'subcategories' && $ctrl.selectedCategory && !$ctrl.productAdded"
                                     subcategories="$ctrl.selectedCategory.subcategories"
                                     select-subcategory="$ctrl.selectSubcategory(subcategory)"></internet-subcategories>
-            <internet-products ng-if="$ctrl.step === 'products' && $ctrl.selectedSubcategory"
+
+            <div class="text-center category-heading col-xs-12" ng-show="$ctrl.step === 'products' && $ctrl.selectedSubcategory">
+                <h4>Available {{ $ctrl.selectedCategory.name }} {{ $ctrl.selectedSubcategory.name }} Packages</h4>
+            </div>
+            <internet-products ng-if="$ctrl.step === 'products' && $ctrl.selectedSubcategory && !$ctrl.productAdded"
                                     products="$ctrl.selectedSubcategory.products"
                                     add-product="$ctrl.addProduct(product)"></internet-products>
 
-            <div>
-                <hr />
-                <hr />
-                <hr />
-                <hr />
-                <hr />
-                <p>
-                    <h1>CHANGE THIS:</h1>
-                    MAKE THE CATEGORIES THE BUTTONS AT THE TOP, MAKE THE DISPLAY BELOW THEIR SUBCATEGORIES AND THE MAIN DISPLAY THE PRODUCTS.
-                </p>
-                <div>
-                    <button class="btn btn-primary" ng-click="$ctrl.step='categories'">Categories</button>
-                </div>
-            </div>
+            <h4 ng-show="$ctrl.productAdded">
+                We've added {{$ctrl.selectedProduct.name}} to your cart.
+                <br />You can <a ng-click="$ctrl.addAnother()"> add another product</a>
+                or <a ng-click="$ctrl.checkout()">continue to the checkout</a>.
+            </h4>
+
         </div>
         <div class="col-sm-4">
-            <cart products="$ctrl.order.products" total="$ctrl.order.total"></cart>
+            <cart products="$ctrl.order.products"
+                  total="$ctrl.order.total"
+                  checkout="$ctrl.checkout()"
+                  remove-product-from-cart="$ctrl.removeProductFromCart(index)"
+            ></cart>
         </div>
     </div>
+    <checkout ng-if="$ctrl.step === 'checkout'"></checkout>
 </loader>

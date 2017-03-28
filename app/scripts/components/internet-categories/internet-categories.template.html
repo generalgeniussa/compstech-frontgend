@@ -1,10 +1,16 @@
 <div class="row">
-    <div class="col-sm-4" ng-repeat="category in $ctrl.categories">
-        <div class="category-button text-center">
-            <h4>{{ category.name }}</h4>
-            <button class="btn btn-primary" ng-click="$ctrl.selectCategory({category: category})">
-                Order
-            </button>
+    <div class="col-xs-12">
+        <div class="col-sm-4 category-button" ng-repeat="category in $ctrl.categories"
+             ng-class="{'active': $ctrl.selectedCategory===category}"
+             ng-click="$ctrl.selectCategory({category: category})">
+            <div class="text-center">
+                <h3>{{ category.name }}<br/>&caron;</h3>
+            </div>
         </div>
     </div>
+    <hr />
+    <div class="text-center category-heading col-xs-12" ng-show="!$ctrl.selectedCategory">
+        <strong>To get started, choose what type of internet you would like to have.</strong>
+    </div>
+
 </div>
